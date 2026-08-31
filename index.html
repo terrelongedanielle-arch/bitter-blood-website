@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BITTER BLOOD — A Film by Danielle Terrelonge</title>
+<meta name="description" content="Bitter Blood — Two lives betrayed. Two homes divided. One secret buried beneath the current. A true Jamaican family mystery, directed by Danielle Terrelonge.">
+
+<!-- ============================================================
+     FONTS
+     Swap these for your own brand fonts if desired.
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     0. ROOT VARIABLES — edit these to reskin the whole site
+     ============================================================ */
+  :root{
+    --bg: #0a0908;
+    --bg-alt: #121110;
+    --bg-card: #17140f;
+    --bg-card-hover: #1d1a14;
+    --text: #f3ede4;
+    --text-muted: #a89e90;
+    --text-dim: #6f665c;
+    --accent: #9c1c1c;
+    --accent-bright: #c4272a;
+    --accent-glow: rgba(196, 39, 42, 0.35);
+    --border: rgba(243, 237, 228, 0.10);
+    --border-strong: rgba(243, 237, 228, 0.20);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --max-width: 1200px;
+    --nav-height: 76px;
+    --ease: cubic-bezier(.16,.84,.44,1);
+  }
+
+  /* ============================================================
+     1. RESET & BASE
+     ============================================================ */
+  *,*::before,*::after{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; background:none; border:none; color:inherit; }
+  section{ position:relative; }
+  ::selection{ background: var(--accent); color: #fff; }
+
+  .container{
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 3rem);
+  }
+  .eyebrow{
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    font-weight: 600;
+    display:inline-block;
+    margin-bottom: 1rem;
+  }
+  .section-heading{
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(2rem, 4.5vw, 3.2rem);
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .section-pad{ padding: clamp(4rem, 10vw, 7.5rem) 0; }
+  .divider{
+    width: 48px; height: 2px; background: var(--accent);
+    margin: 1.5rem 0;
+  }
+
+  /* fade-in-on-scroll utility */
+  .reveal{ opacity:0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  /* ============================================================
+     2. NAVIGATION
+     ============================================================ */
+  .nav{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 1000;
+    height: var(--nav-height);
+    display:flex;
+    align-items:center;
+    background: rgba(10,9,8,0.0);
+    border-bottom: 1px solid transparent;
+    transition: background .4s var(--ease), border-color .4s var(--ease), backdrop-filter .4s var(--ease);
+  }
+  .nav.scrolled{
+    background: rgba(10,9,8,0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner{
+    width:100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 3rem);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .logo span{ color: var(--accent-bright); }
+
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap: clamp(1.1rem, 2vw, 2.1rem);
+  }
+  .nav-links a{
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 500;
+    position:relative;
+    padding: 6px 0;
+    transition: color .25s;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:0;
+    width:0; height:1px; background: var(--accent-bright);
+    transition: width .3s var(--ease);
+  }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{
+    border:1px solid var(--border-strong) !important;
+    padding: 8px 18px !important;
+    border-radius: 2px;
+    color: var(--text) !important;
+  }
+  .nav-cta:hover{ border-color: var(--accent-bright) !important; }
+
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    width: 26px;
+    z-index: 1200;
+  }
+  .nav-toggle span{
+    height:1.5px; width:100%; background: var(--text);
+    transition: transform .3s var(--ease), opacity .3s var(--ease);
+  }
+  .nav-toggle.open span:nth-child(1){ transform: translateY(6.5px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2){ opacity:0; }
+  .nav-toggle.open span:nth-child(3){ transform: translateY(-6.5px) rotate(-45deg); }
+
+  @media (max-width: 860px){
+    .nav-links{
+      position:fixed;
+      inset:0;
+      background: rgba(8,7,6,0.98);
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      gap: 2rem;
+      transform: translateX(100%);
+      transition: transform .4s var(--ease);
+    }
+    .nav-links.open{ transform: translateX(0); }
+    .nav-links a{ font-size: 1.05rem; }
+    .nav-toggle{ display:flex; }
+  }
+
+  /* ============================================================
+     3. HERO
+     ============================================================ */
+  .hero{
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding: calc(var(--nav-height) + 2rem) 1.5rem 4rem;
+    /* REPLACE: swap this gradient for background-image: url('your-hero-still.jpg') */
+    background:
+      radial-gradient(ellipse at 50% 20%, rgba(156,28,28,0.16), transparent 60%),
+      linear-gradient(180deg, rgba(10,9,8,0.35) 0%, rgba(10,9,8,0.75) 60%, var(--bg) 100%),
+      repeating-linear-gradient(115deg, #16130f 0px, #16130f 2px, #0e0c0a 2px, #0e0c0a 4px);
+    background-size: cover;
+    background-position: center;
+    overflow:hidden;
+  }
+  /* Optional: <video> background — uncomment and point src at your trailer/teaser loop
+  .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:0.55; }
+  */
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(10,9,8,0.85) 100%);
+    pointer-events:none;
+  }
+  .hero-content{ position:relative; z-index:2; max-width: 900px; }
+  .hero-eyebrow{
+    font-size: 0.78rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+  }
+  .hero-title{
+    font-family: var(--font-display);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: clamp(3.4rem, 12vw, 8.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-shadow: 0 0 60px rgba(196,39,42,0.25);
+  }
+  .hero-title em{
+    font-style: normal;
+    color: var(--accent-bright);
+  }
+  .hero-tagline{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.15rem, 2.3vw, 1.55rem);
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 1.75rem auto 0;
+    line-height: 1.5;
+  }
+  .hero-meta{
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .hero-actions{
+    margin-top: 3rem;
+    display:flex;
+    gap: 1.1rem;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    padding: 0.95rem 2.1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all .3s var(--ease);
+  }
+  .btn-primary{
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover{ background: var(--accent-bright); box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-2px); }
+  .btn-ghost{
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+  }
+  .btn-ghost:hover{ border-color: var(--text); background: rgba(255,255,255,0.04); }
+
+  .scroll-cue{
+    position:absolute;
+    bottom: 2.2rem; left:50%;
+    transform: translateX(-50%);
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+    color: var(--text-dim);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform:uppercase;
+  }
+  .scroll-cue .line{
+    width:1px; height: 34px;
+    background: linear-gradient(var(--accent-bright), transparent);
+    animation: scrollpulse 2s infinite;
+  }
+  @keyframes scrollpulse{
+    0%{ transform: scaleY(0); transform-origin:top; }
+    50%{ transform: scaleY(1); transform-origin:top; }
+    51%{ transform-origin:bottom; }
+    100%{ transform: scaleY(0); transform-origin:bottom; }
+  }
+
+  /* ============================================================
+     4. SYNOPSIS
+     ============================================================ */
+  .synopsis-grid{
+    display:grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items:start;
+  }
+  @media (max-width: 900px){ .synopsis-grid{ grid-template-columns:1fr; } }
+
+  .logline-box{
+    border-left: 2px solid var(--accent);
+    padding-left: 1.75rem;
+  }
+  .logline-label{
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform:uppercase;
+    color: var(--text-dim); margin-bottom: 0.9rem;
+  }
+  .logline-text{
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    line-height: 1.35;
+    color: var(--text);
+  }
+
+  .synopsis-body p{
+    color: var(--text-muted);
+    font-size: 1.03rem;
+    margin-bottom: 1.3rem;
+  }
+  .synopsis-body p:first-child{
+    color: var(--text);
+    font-size: 1.12rem;
+  }
+
+  .badges{
+    display:flex; flex-wrap:wrap; gap:0.7rem;
+    margin-top: 2rem;
+  }
+  .badge{
+    border: 1px solid var(--border-strong);
+    padding: 0.5rem 1.1rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-radius: 100px;
+    transition: all .25s;
+  }
+  .badge:hover{ border-color: var(--accent-bright); color: var(--text); }
+
+  /* Themes */
+  .themes{
+    margin-top: clamp(3.5rem, 8vw, 5.5rem);
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 760px){ .themes{ grid-template-columns:1fr; } }
+  .theme-card{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem 1.75rem;
+    transition: border-color .3s, background .3s;
+  }
+  .theme-card:hover{ border-color: var(--border-strong); background: var(--bg-card-hover); }
+  .theme-num{
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--accent-bright);
+    margin-bottom: 1rem;
+  }
+  .theme-card h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+  .theme-card p{ color: var(--text-muted); font-size: 0.94rem; }
+
+  /* ============================================================
+     5. VIDEO
+     ============================================================ */
+  .video-section{ background: var(--bg-alt); }
+  .video-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio: 16/9;
+    background:
+      linear-gradient(135deg, #171310, #0c0a08);
+    border: 1px solid var(--border-strong);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .video-frame::before{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(115deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 6px);
+  }
+  /* REPLACE this entire .video-frame block with your embed, e.g.:
+    <div class="video-frame" style="border:none;">
+      <iframe src="https://player.vimeo.com/video/YOUR_ID" title="Bitter Blood — Official Trailer"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+        style="position:absolute;inset:0;width:100%;height:100%;"></iframe>
+    </div>
+  */
+  .play-btn{
+    position:relative; z-index:2;
+    width: 84px; height:84px;
+    border-radius:50%;
+    border: 1.5px solid var(--border-strong);
+    display:flex; align-items:center; justify-content:center;
+    transition: all .3s var(--ease);
+  }
+  .play-btn:hover{ border-color: var(--accent-bright); box-shadow: 0 0 40px var(--accent-glow); transform: scale(1.06); }
+  .play-btn svg{ width:22px; height:22px; fill: var(--text); margin-left:4px; }
+  .video-caption{
+    position:relative; z-index:2;
+    margin-top: 1.4rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform:uppercase;
+    color: var(--text-dim);
+  }
+  .video-frame-inner{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+
+  /* ============================================================
+     6. STILLS GALLERY
+     ============================================================ */
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+  }
+  @media (max-width: 900px){ .gallery-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px){ .gallery-grid{ grid-template-columns: 1fr 1fr; gap:0.4rem; } }
+
+  .still{
+    position:relative;
+    aspect-ratio: 3/4;
+    overflow:hidden;
+    background: linear-gradient(160deg, #1a1611, #0b0a08 70%);
+    border: 1px solid var(--border);
+  }
+  .still:nth-child(3n+1){ aspect-ratio: 4/5; }
+  .still:nth-child(4n){ aspect-ratio: 1/1; }
+  /* REPLACE: put an <img src="stills/still-01.jpg" alt="..."> inside each .still, sized via object-fit:cover */
+  .still img{ width:100%; height:100%; object-fit:cover; transition: transform .6s var(--ease); }
+  .still:hover img{ transform: scale(1.06); }
+  .still-label{
+    position:absolute; left:0; bottom:0; right:0;
+    padding: 0.9rem 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform:uppercase;
+    color: var(--text-dim);
+    background: linear-gradient(0deg, rgba(0,0,0,0.55), transparent);
+  }
+
+  /* ============================================================
+     7. CAST & CREW
+     ============================================================ */
+  .cast-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 860px){ .cast-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .cast-grid{ grid-template-columns: 1fr; max-width:340px; margin-left:auto; margin-right:auto; } }
+
+  .cast-card{ text-align:center; }
+  .cast-photo{
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, #1c1712, #0a0908 75%);
+    border: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+    position:relative;
+    overflow:hidden;
+  }
+  /* REPLACE: <img src="headshots/name.jpg" alt="Name"> inside .cast-photo */
+  .cast-photo img{ width:100%; height:100%; object-fit:cover; }
+  .cast-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.5));
+  }
+  .cast-name{
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  .cast-role{
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform:uppercase;
+    color: var(--accent-bright);
+    margin: 0.4rem 0 0.9rem;
+  }
+  .cast-bio{ color: var(--text-muted); font-size: 0.92rem; }
+
+  .dedication{
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: 2.25rem clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    text-align:center;
+  }
+  .dedication p{
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+    color: var(--text-muted);
+    max-width: 760px;
+    margin: 0 auto;
+    line-height:1.6;
+  }
+  .dedication p strong{ color: var(--text); font-style:normal; }
+
+  /* ============================================================
+     8. DIRECTOR'S STATEMENT
+     ============================================================ */
+  .statement-section{
+    background: var(--bg-alt);
+    position:relative;
+  }
+  .statement-wrap{
+    max-width: 820px;
+    margin: 0 auto;
+    text-align:center;
+  }
+  .quote-mark{
+    font-family: var(--font-display);
+    font-size: 6rem;
+    line-height:1;
+    color: var(--accent);
+    opacity:0.5;
+    margin-bottom: -1.5rem;
+  }
+  .statement-lead{
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--text);
+    margin-bottom: 2.5rem;
+  }
+  .statement-body{
+    text-align:left;
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
+  .statement-body p{ margin-bottom: 1.2rem; }
+  .statement-sig{
+    margin-top: 2.5rem;
+    text-align:center;
+  }
+  .statement-sig .name{
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text);
+  }
+  .statement-sig .role{
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.35rem;
+  }
+
+  /* ============================================================
+     9. MAKING-OF
+     ============================================================ */
+  .making-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+    margin-top: 3rem;
+  }
+  @media (max-width: 860px){ .making-grid{ grid-template-columns:1fr; } }
+  .making-col h3{
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .making-col p{ color: var(--text-muted); margin-bottom: 1.1rem; font-size: 0.97rem; }
+
+  /* ============================================================
+     10. CREDITS ACCORDION
+     ============================================================ */
+  .credits-list{ margin-top: 3rem; border-top: 1px solid var(--border); }
+  details.credit-group{
+    border-bottom: 1px solid var(--border);
+  }
+  details.credit-group summary{
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 1.6rem 0.25rem;
+    cursor:pointer;
+    font-family: var(--font-display);
+    font-size: clamp(1.2rem, 2.3vw, 1.6rem);
+    font-weight: 600;
+    color: var(--text);
+  }
+  details.credit-group summary::-webkit-details-marker{ display:none; }
+  .credit-toggle-icon{
+    width: 22px; height:22px;
+    border: 1px solid var(--border-strong);
+    border-radius:50%;
+    position:relative;
+    flex-shrink:0;
+    transition: transform .3s var(--ease), border-color .3s;
+  }
+  .credit-toggle-icon::before, .credit-toggle-icon::after{
+    content:"";
+    position:absolute;
+    background: var(--text-muted);
+    top:50%; left:50%;
+    transform: translate(-50%,-50%);
+  }
+  .credit-toggle-icon::before{ width:9px; height:1px; }
+  .credit-toggle-icon::after{ width:1px; height:9px; transition: opacity .25s; }
+  details[open] .credit-toggle-icon::after{ opacity:0; }
+  details[open] .credit-toggle-icon{ border-color: var(--accent-bright); }
+
+  .credit-rows{ padding: 0 0.25rem 2rem; }
+  .credit-row{
+    display:flex;
+    justify-content:space-between;
+    gap: 1.5rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+  .credit-row .role{ color: var(--text-muted); }
+  .credit-row .who{ color: var(--text); text-align:right; }
+  .credit-row .who.placeholder{ color: var(--text-dim); font-style: italic; }
+
+  /* ============================================================
+     11. PRESS KIT & FOOTER
+     ============================================================ */
+  .press-section{
+    background: var(--bg-alt);
+    text-align:center;
+  }
+  .press-actions{
+    display:flex; gap:1.1rem; justify-content:center; flex-wrap:wrap;
+    margin-top: 2.5rem;
+  }
+  .press-note{
+    margin-top: 1.5rem;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+
+  footer{
+    padding: clamp(3rem, 7vw, 4.5rem) 0 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap: 2.5rem;
+  }
+  .footer-brand .logo{ margin-bottom: 0.9rem; }
+  .footer-brand p{ color: var(--text-dim); font-size: 0.88rem; max-width: 320px; }
+
+  .footer-col h4{
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+  .footer-col a, .footer-col p{
+    display:block;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 0.55rem;
+    transition: color .2s;
+  }
+  .footer-col a:hover{ color: var(--accent-bright); }
+
+  .footer-bottom{
+    margin-top: 3.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  .footer-socials{ display:flex; gap:1.2rem; }
+
+  /* misc */
+  .to-top{
+    position: fixed;
+    right: 1.75rem; bottom: 1.75rem;
+    width: 46px; height:46px;
+    border: 1px solid var(--border-strong);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: rgba(10,9,8,0.75);
+    backdrop-filter: blur(6px);
+    opacity:0; pointer-events:none;
+    transform: translateY(10px);
+    transition: all .3s var(--ease);
+    z-index: 900;
+  }
+  .to-top.visible{ opacity:1; pointer-events:auto; transform:none; }
+  .to-top svg{ width:16px; height:16px; fill: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<header class="nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#top" class="logo">Bitter<span>Blood</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#synopsis" class="nav-link">Synopsis</a>
+      <a href="#trailer" class="nav-link">Trailer</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+      <a href="#cast" class="nav-link">Cast &amp; Crew</a>
+      <a href="#statement" class="nav-link">Statement</a>
+      <a href="#credits" class="nav-link">Credits</a>
+      <a href="#press" class="nav-link nav-cta">Press Kit</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+     1. HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <!-- Optional video background — replace .hero background in CSS or uncomment this <video>
+  <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.jpg">
+    <source src="hero-loop.mp4" type="video/mp4">
+  </video>
+  -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">A True Jamaican Family Mystery</div>
+    <h1 class="hero-title">Bitter<br><em>Blood</em></h1>
+    <p class="hero-tagline">Two lives betrayed. Two homes divided. One secret buried beneath the current.</p>
+    <div class="hero-meta">A Film by Danielle Terrelonge &nbsp;·&nbsp; Narrative Short &nbsp;·&nbsp; Semi-Silent</div>
+    <div class="hero-actions">
+      <a href="#trailer" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch Trailer
+      </a>
+      <a href="#synopsis" class="btn btn-ghost">The Story</a>
+    </div>
+  </div>
+  <a href="#synopsis" class="scroll-cue">
+    <span>Scroll</span>
+    <span class="line"></span>
+  </a>
+</section>
+
+<!-- ============================================================
+     2. SYNOPSIS & GENRE
+     ============================================================ -->
+<section class="section-pad" id="synopsis">
+  <div class="container">
+    <div class="synopsis-grid">
+      <div class="reveal">
+        <div class="eyebrow">Logline</div>
+        <div class="logline-box">
+          <div class="logline-label">In One Sentence</div>
+          <p class="logline-text">A hard-working Jamaican mother leaves her toddler in the care of her husband's mistress, leading to an unspoken tragedy that haunts a family for generations.</p>
+        </div>
+        <div class="badges">
+          <span class="badge">Drama</span>
+          <span class="badge">True Story</span>
+          <span class="badge">Psychological Suspense</span>
+          <span class="badge">Narrative Short</span>
+          <span class="badge">Semi-Silent Film</span>
+        </div>
+      </div>
+      <div class="synopsis-body reveal">
+        <div class="eyebrow">About the Film</div>
+        <p>In the quiet hills of rural Jamaica, some truths are too heavy to speak aloud. <strong>Bitter Blood</strong> uncovers a dark, generational taboo — the secret lives, second families, and unspoken infidelities that split households and destroy lineages.</p>
+        <p>When Enid leaves her toddler in the hands of her husband's mistress to work the fields, a desperate compromise turns into an unthinkable tragedy. By the time the sun sets, a child is dead in the river, and a family is bound forever by silence, suspicion, and a devastating question that remains unanswered to this day: was it a horrific accident, or an act of cold malice?</p>
+      </div>
+    </div>
+
+    <div class="themes">
+      <div class="theme-card reveal">
+        <div class="theme-num">01</div>
+        <h3>Generational Silence &amp; Taboo</h3>
+        <p>The cultural norm of quiet endurance around infidelity and secret lineages in rural Jamaica.</p>
+      </div>
+      <div class="theme-card reveal">
+        <div class="theme-num">02</div>
+        <h3>Maternal Grief &amp; Betrayal</h3>
+        <p>The devastating intersection of economic necessity, personal sacrifice, and tragic loss.</p>
+      </div>
+      <div class="theme-card reveal">
+        <div class="theme-num">03</div>
+        <h3>Unanswered History</h3>
+        <p>The painful ambiguity of family mysteries that are never fully resolved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     3. TRAILER / VIDEO
+     ============================================================ -->
+<section class="section-pad video-section" id="trailer">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:2.75rem;">
+      <div class="eyebrow">Watch</div>
+      <h2 class="section-heading">The Trailer</h2>
+    </div>
+
+    <!-- REPLACE: swap this placeholder for a real embed (see comment in CSS for a Vimeo/YouTube example) -->
+    <div class="video-frame reveal">
+      <div class="video-frame-inner">
+        <button class="play-btn" aria-label="Play trailer">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="video-caption">Trailer Coming Soon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     4. STILLS GALLERY
+     ============================================================ -->
+<section class="section-pad" id="gallery">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:2.75rem;">
+      <div class="eyebrow">Gallery</div>
+      <h2 class="section-heading">Production Stills</h2>
+    </div>
+
+    <!-- REPLACE: put an <img> inside each .still div, e.g. <img src="stills/01.jpg" alt="..."> -->
+    <div class="gallery-grid reveal">
+      <div class="still"><span class="still-label">Still 01</span></div>
+      <div class="still"><span class="still-label">Still 02</span></div>
+      <div class="still"><span class="still-label">Still 03</span></div>
+      <div class="still"><span class="still-label">Still 04</span></div>
+      <div class="still"><span class="still-label">Still 05</span></div>
+      <div class="still"><span class="still-label">Still 06</span></div>
+      <div class="still"><span class="still-label">Still 07</span></div>
+      <div class="still"><span class="still-label">Still 08</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. CAST & CREW SPOTLIGHT
+     ============================================================ -->
+<section class="section-pad" id="cast" style="background:var(--bg-alt);">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:1rem;">
+      <div class="eyebrow">Cast &amp; Crew</div>
+      <h2 class="section-heading">The People Behind Bitter Blood</h2>
+    </div>
+
+    <div class="cast-grid reveal">
+      <div class="cast-card">
+        <div class="cast-photo"><!-- REPLACE: <img src="headshots/danielle.jpg" alt="Danielle Terrelonge"> --></div>
+        <div class="cast-name">Danielle Terrelonge</div>
+        <div class="cast-role">Writer &amp; Director</div>
+        <p class="cast-bio">Bitter Blood is Danielle's deeply personal directorial effort — a film born from a family story kept silent for three decades, and her mission to bring it into the light.</p>
+      </div>
+      <div class="cast-card">
+        <div class="cast-photo"><!-- REPLACE: <img src="headshots/shante.jpg" alt="Shante Brown"> --></div>
+        <div class="cast-name">Shante Brown</div>
+        <div class="cast-role">Cast — "The Mistress"</div>
+        <p class="cast-bio">A published author, writer, and biotech professional, Shante brought quiet power and depth to one of the film's most complex, unspoken roles.</p>
+      </div>
+      <div class="cast-card">
+        <div class="cast-photo"><!-- REPLACE: <img src="headshots/mario.jpg" alt="Mario Stanley"> --></div>
+        <div class="cast-name">Mario Stanley</div>
+        <div class="cast-role">Cinematography &amp; Technical Collaboration — Emberline Films</div>
+        <p class="cast-bio">A documentarian and fellow indigenous Jamaican with proud Maroon roots, Mario's technical guidance and steady leadership made this shoot possible under tight constraints.</p>
+      </div>
+    </div>
+
+    <div class="dedication reveal">
+      <p>With immeasurable gratitude to <strong>Aunt Jennifer</strong> ("Auntie Jen") — our family's living encyclopedia, whose courage, honesty, and generosity during a single December drive made this story possible to tell at all.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     6. DIRECTOR'S STATEMENT
+     ============================================================ -->
+<section class="section-pad statement-section" id="statement">
+  <div class="container">
+    <div class="statement-wrap reveal">
+      <div class="eyebrow">Director's Statement</div>
+      <div class="quote-mark">&ldquo;</div>
+      <p class="statement-lead">Bitter Blood is my way of honoring my grandmother's pain and giving voice to a story that was never allowed to be spoken.</p>
+
+      <div class="statement-body">
+        <p>Growing up, my grandmother was always a complex woman — formidable, quiet, and guarded in ways I never fully understood. For over three decades of my life, the full truth of her story remained hidden in the shadows of our family's past, kept quiet by a culture that often buries its deepest wounds.</p>
+        <p>During the Christmas holidays of 2025, while on a drive with my family, my Aunt Jennifer — Auntie Jen, as we call her — shared a story that stopped me in my tracks. Auntie Jen has been the ultimate encyclopedia and godsend for my archival work on our family, especially when it comes to my grandmother and her 13 children. She has always been so descriptive, transparent, honest, and giving in how she shares our history. That day, she revealed the tragic loss of my grandmother's toddler son, left in the care of her husband's mistress while she worked the farm, only to be found face-down in the nearby river hours later. Hearing it broke my heart completely. The sheer weight of that loss, compounded by betrayal and unanswered questions, moved me to tears. Without Auntie Jen's openness, I could never have honored the true lived experience of this story.</p>
+        <p>In that moment, the visuals flooded my mind. I saw the quiet trails, the heat of the fields, the devastating silence of the river, and the undeniable humanity of a woman carrying an unbearable grief. I knew instantly that I had to make this film.</p>
+        <p>Bitter Blood is my way of honoring my grandmother's pain and giving voice to a story that was never allowed to be spoken. While rooted in a dark, taboo aspect of Jamaican family history, it speaks to universal themes of survival, betrayal, and the heavy secrets families carry across generations. I made this film to give her story a permanent space — to immortalize her memory and bring what was hidden in the dark into the light.</p>
+      </div>
+
+      <div class="statement-sig">
+        <div class="name">— Danielle Terrelonge</div>
+        <div class="role">Director, Bitter Blood</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7. THE MAKING OF BITTER BLOOD
+     ============================================================ -->
+<section class="section-pad" id="making">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Behind the Film</div>
+      <h2 class="section-heading">The Making of Bitter Blood</h2>
+    </div>
+
+    <div class="making-grid reveal">
+      <div class="making-col">
+        <h3>A Silent Canvas</h3>
+        <p>In a departure from traditional modern Jamaican storytelling — where spoken dialogue and script drive the narrative — Bitter Blood operates as a semi-silent film. There is no verbal script and no spoken dialogue throughout the entire project.</p>
+        <p>Instead, the storyline relies purely on cinematic language: strategic POV angles, tight framing, key visual cues, and heavily amplified environmental audio. Aside from the natural rustle of the bushes and the flowing river, the silence is unbroken until the final sequence — punctuated only by the terrifying sounds of water and Enid's tragic scream upon discovery.</p>
+      </div>
+      <div class="making-col">
+        <h3>Four Hours in the Hills</h3>
+        <p>Bitter Blood is a testament to fast-paced guerrilla filmmaking driven by deep passion and absolute trust. The entire project was captured across just two days, totaling roughly four hours of active camera time.</p>
+        <p>Originally, the vision was to shoot on location in Portland along the exact riverbanks where the historical tragedy unfolded. Tight scheduling forced a creative pivot — the director's own neighborhood, alongside a river, provided the authentic backdrop needed. Without a toddler actor available, the child's presence is built through implication, physical hand-offs, and subjective first-person camera perspectives — heightening the psychological suspense of the river sequence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8. CREDITS
+     ============================================================ -->
+<section class="section-pad" id="credits" style="background:var(--bg-alt);">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">Credits</div>
+      <h2 class="section-heading">Full Credits</h2>
+    </div>
+
+    <div class="credits-list reveal">
+
+      <details class="credit-group" open>
+        <summary>Cast<span class="credit-toggle-icon"></span></summary>
+        <div class="credit-rows">
+          <div class="credit-row"><span class="role">The Mistress</span><span class="who">Shante Brown</span></div>
+          <div class="credit-row"><span class="role">Enid</span><span class="who placeholder">[Cast name]</span></div>
+          <div class="credit-row"><span class="role">The Husband</span><span class="who placeholder">[Cast name]</span></div>
+          <div class="credit-row"><span class="role">The Child</span><span class="who placeholder">[Cast name]</span></div>
+        </div>
+      </details>
+
+      <details class="credit-group">
+        <summary>Crew<span class="credit-toggle-icon"></span></summary>
+        <div class="credit-rows">
+          <div class="credit-row"><span class="role">Writer &amp; Director</span><span class="who">Danielle Terrelonge</span></div>
+          <div class="credit-row"><span class="role">Cinematography &amp; Technical Collaboration</span><span class="who">Mario Stanley</span></div>
+          <div class="credit-row"><span class="role">Sound Design</span><span class="who placeholder">[Add name]</span></div>
+          <div class="credit-row"><span class="role">Editor</span><span class="who placeholder">[Add name]</span></div>
+          <div class="credit-row"><span class="role">Colorist</span><span class="who placeholder">[Add name]</span></div>
+        </div>
+      </details>
+
+      <details class="credit-group">
+        <summary>Production<span class="credit-toggle-icon"></span></summary>
+        <div class="credit-rows">
+          <div class="credit-row"><span class="role">An Independent Production</span><span class="who">Danielle Terrelonge</span></div>
+          <div class="credit-row"><span class="role">In Collaboration With</span><span class="who">Emberline Films</span></div>
+          <div class="credit-row"><span class="role">Filmed On Location</span><span class="who">Jamaica</span></div>
+        </div>
+      </details>
+
+      <details class="credit-group">
+        <summary>Special Thanks<span class="credit-toggle-icon"></span></summary>
+        <div class="credit-rows">
+          <div class="credit-row"><span class="role">Family Archivist &amp; Story Consultant</span><span class="who">Aunt Jennifer ("Auntie Jen")</span></div>
+          <div class="credit-row"><span class="role">In Memory Of</span><span class="who">The Terrelonge Family</span></div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     9. PRESS KIT
+     ============================================================ -->
+<section class="section-pad press-section" id="press">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">For Press &amp; Festivals</div>
+      <h2 class="section-heading">Press Kit &amp; Contact</h2>
+      <p style="color:var(--text-muted); max-width:560px; margin:1.25rem auto 0;">
+        Download stills, poster art, and the full press kit, or reach out directly for festival and screening inquiries.
+      </p>
+    </div>
+
+    <!-- REPLACE href="#" with real file links (PDF press kit, poster JPG/PNG) -->
+    <div class="press-actions reveal">
+      <a href="#" class="btn btn-primary" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+        Download Press Kit
+      </a>
+      <a href="#" class="btn btn-ghost" download>Download Poster</a>
+      <a href="mailto:admin@bitterblood.com" class="btn btn-ghost">Contact Us</a>
+    </div>
+    <p class="press-note">Press &amp; festival inquiries: admin@bitterblood.com</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo">Bitter<span>Blood</span></a>
+        <p>A true Jamaican family mystery. Narrative short, semi-silent, directed by Danielle Terrelonge.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Film</h4>
+        <a href="#synopsis">Synopsis</a>
+        <a href="#trailer">Trailer</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#credits">Credits</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:admin@bitterblood.com">admin@bitterblood.com</a>
+        <a href="https://www.bitterbloodmovie.com">www.bitterbloodmovie.com</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <!-- REPLACE with real social URLs -->
+        <a href="#" target="_blank" rel="noopener">Instagram</a>
+        <a href="#" target="_blank" rel="noopener">YouTube</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Bitter Blood. All rights reserved.</span>
+      <span>Directed by Danielle Terrelonge</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+</button>
+
+<script>
+  // ---- Mobile nav toggle ----
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // ---- Nav background on scroll ----
+  const nav = document.getElementById('siteNav');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 60;
+    nav.classList.toggle('scrolled', scrolled);
+    toTop.classList.toggle('visible', window.scrollY > 800);
+  });
+
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ---- Reveal on scroll ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Footer year ----
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
